@@ -25,6 +25,7 @@
 		5E050C8F2186FCCC005F0F3D /* SANetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E050C8E2186FCCC005F0F3D /* SANetworking.swift */; };
 		5E050C91218723DB005F0F3D /* SADownloadingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E050C90218723DB005F0F3D /* SADownloadingFile.swift */; };
 		5E050C9321872A6C005F0F3D /* SAUploadingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E050C9221872A6C005F0F3D /* SAUploadingFile.swift */; };
+		FFBA9A8D82388A1403B12EF8 /* Pods_SANetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF74EEE7334CEAAE0F12485D /* Pods_SANetworking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,9 @@
 		5E050C8E2186FCCC005F0F3D /* SANetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SANetworking.swift; sourceTree = "<group>"; };
 		5E050C90218723DB005F0F3D /* SADownloadingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SADownloadingFile.swift; sourceTree = "<group>"; };
 		5E050C9221872A6C005F0F3D /* SAUploadingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAUploadingFile.swift; sourceTree = "<group>"; };
+		64870C24733806F6B36CF360 /* Pods-SANetworking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworking.release.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworking/Pods-SANetworking.release.xcconfig"; sourceTree = "<group>"; };
+		BCB29231D364F80BBED6B42C /* Pods-SANetworking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworking/Pods-SANetworking.debug.xcconfig"; sourceTree = "<group>"; };
+		DF74EEE7334CEAAE0F12485D /* Pods_SANetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SANetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBA9A8D82388A1403B12EF8 /* Pods_SANetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		533ECAAE679E0793963B8405 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BCB29231D364F80BBED6B42C /* Pods-SANetworking.debug.xcconfig */,
+				64870C24733806F6B36CF360 /* Pods-SANetworking.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5E050C742186E697005F0F3D = {
 			isa = PBXGroup;
 			children = (
 				5E050C802186E697005F0F3D /* SANetworking */,
 				5E050C7F2186E697005F0F3D /* Products */,
+				533ECAAE679E0793963B8405 /* Pods */,
+				B35E11DE2031FD102D1478D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +91,14 @@
 			path = SANetworking;
 			sourceTree = "<group>";
 		};
+		B35E11DE2031FD102D1478D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF74EEE7334CEAAE0F12485D /* Pods_SANetworking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -93,6 +117,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E050C862186E697005F0F3D /* Build configuration list for PBXNativeTarget "SANetworking" */;
 			buildPhases = (
+				A1E04FCC09E902AB0DC08172 /* [CP] Check Pods Manifest.lock */,
 				5E050C792186E697005F0F3D /* Headers */,
 				5E050C7A2186E697005F0F3D /* Sources */,
 				5E050C7B2186E697005F0F3D /* Frameworks */,
@@ -170,6 +195,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"SANetworking\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"SANetworking\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/SANetworking.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/SANetworking.framework/Modules/SANetworking.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/SANetworking.framework/Modules/SANetworking.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/SANetworking.framework/SANetworking\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/SANetworking.framework/SANetworking\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/SANetworking.framework/SANetworking\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/SANetworking.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"\n";
+		};
+		A1E04FCC09E902AB0DC08172 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SANetworking-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -311,6 +358,7 @@
 		};
 		5E050C872186E697005F0F3D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCB29231D364F80BBED6B42C /* Pods-SANetworking.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -337,6 +385,7 @@
 		};
 		5E050C882186E697005F0F3D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64870C24733806F6B36CF360 /* Pods-SANetworking.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";

@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT (example)"
   s.author             = { "Subhash Arya" => "subhasharya2@gmail.com" }
   s.platform     = :ios, "12.0"
-  s.source       = { :git => "https://github.com/subhasharya/SANetworking", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/subhasharya/SANetworking", :tag => "1.0.0" }
   s.source_files  = "SANetworking"
   s.exclude_files = "Classes/Exclude"
  
