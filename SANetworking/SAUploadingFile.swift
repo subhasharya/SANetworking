@@ -55,6 +55,7 @@ public class SAUploadingFile: NSObject {
             let fileArray = filePathKey?.components(separatedBy: "/")
             filename = (fileArray?.last)!
         }
+        
         let mimetype = "multipart/form-data"
         body.append(Data("--\(boundary)\r\n".utf8))
         body.append(Data("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n".utf8))
@@ -67,6 +68,7 @@ public class SAUploadingFile: NSObject {
 }
 
 extension UIImage {
+    
     fileprivate func resize(_ image: UIImage) -> UIImage {
         var actualHeight = Float(image.size.height)
         var actualWidth = Float(image.size.width)
@@ -94,6 +96,7 @@ extension UIImage {
                 actualWidth = maxWidth
             }
         }
+        
         let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(actualWidth), height: CGFloat(actualHeight))
         UIGraphicsBeginImageContext(rect.size)
         image.draw(in: rect)
